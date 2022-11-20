@@ -3,14 +3,23 @@ import 'package:testlab45/post_detail.dart';
 import 'http_service.dart';
 import 'post_model.dart';
 
-class PostsPage extends StatelessWidget {
+class SecondPage extends StatefulWidget {
+  const SecondPage({Key? key}) : super(key: key);
+
+  @override
+  State<SecondPage> createState() => _SecondPage();
+}
+
+class _SecondPage extends State<SecondPage> {
   final HttpService httpService = HttpService();
   late Future<Welcome> futureResult;
+
   @override
-  void initState(){
-    // super.initState();
-    futureResult = httpService.getPosts() as Future<Welcome>;
+  void initState() {
+    super.initState();
+    futureResult = httpService.getPosts();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +32,7 @@ class PostsPage extends StatelessWidget {
           if (snapshot.hasData) {
             List<Welcome> posts = snapshot.data as List<Welcome>;
             return Column(
-              Text(snapshot.data![0].results[0].name),
+              children: [Text(snapshot.data![0].results[0].name)],
             );
           } else {
             return Center(child: CircularProgressIndicator());
